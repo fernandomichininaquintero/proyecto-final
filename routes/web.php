@@ -23,4 +23,6 @@ Route::get('/obras/add', [ObraController::class, 'create'])->name('addObra');
 
 Route::post('/obras/add', [ObraController::class, 'store'])->name('createObra');
 
+Route::any('/obras/modify/{obra_id}', [ObraController::class, 'update'])->name('modObra');
+
 Route::any('/obras/delete/{obra_id}', [ObraController::class, 'destroy'])->name('deleteObra');

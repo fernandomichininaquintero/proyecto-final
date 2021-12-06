@@ -80,19 +80,36 @@ class ObraController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($obra_id)
     {
-        //
+        if(empty(request()->all())) {
+            $municipios = Municipio::get();
+            $obra = Obra::findOrFail($obra_id);
+            return view('modObra', ['obra_id'=>$obra_id], compact('obra', 'municipios'));
+        };
+
+        request()->validate([
+            'direccion' => 'required',
+            'municipio_id' => 'required|numeric|min:0|not_in:0',
+        ]);
+
+        $obra = Obra::findOrFail(request('obra_id'));
+
+        $obra->direccion = request('direccion');
+        $obra->municipio_id = request('municipio_id');
+
+        $obra->save();
+
+        return redirect()->route('obra');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $obra_id
      * @return \Illuminate\Http\Response
      */
     public function destroy($obra_id)
