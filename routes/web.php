@@ -18,3 +18,9 @@ use App\Http\Controllers\ObraController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/obras', [ObraController::class, 'index'])->name('obra');
+
+Route::get('/obras/add', [ObraController::class, 'create'])->name('addObra');
+
+Route::post('/obras/add', [ObraController::class, 'store'])->name('createObra');
+
+Route::any('/obras/delete/{obra_id}', [ObraController::class, 'destroy'])->name('deleteObra');

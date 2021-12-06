@@ -11,7 +11,10 @@ class Obra extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     protected $table = 'obra';
+    public $timestamps = false;
 
     public function getMunicipioName()
     {

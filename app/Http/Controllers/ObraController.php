@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Obra;
+use App\Models\Municipio;
 use Illuminate\Http\Request;
 
 class ObraController extends Controller
@@ -26,7 +27,9 @@ class ObraController extends Controller
      */
     public function create()
     {
-        //
+        $municipios = Municipio::get();
+
+        return view('addObra', compact('municipios'));
     }
 
     /**
@@ -35,9 +38,21 @@ class ObraController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        request()->validate([
+            'direccion' => 'required',
+            'municipio_id' => 'required|numeric|min:0|not_in:0',
+        ]);
+
+        $newObra = new Obra;
+        $newObra->direccion = request('direccion');
+        $newObra->municipio_id = request('municipio_id');
+        $newObra->empresa_id = 0;
+
+        $newObra->save();
+
+        return redirect()->route('obra');
     }
 
     /**
@@ -80,8 +95,17 @@ class ObraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($obra_id)
     {
-        //
+        if(empty(request()->all())) {
+            $obra = Obra::findOrFail($obra_id);
+            return view('deleteObra', ['obra_id'=>$obra_id], compact('obra'));
+        };
+
+        $obra = Obra::findOrFail(request('obra_id'));
+
+        $obra->delete();
+
+        return redirect()->route('obra');
     }
 }
