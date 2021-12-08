@@ -17,7 +17,7 @@ class ObraController extends Controller
     {
         $obras = Obra::get();
 
-        return view('obra',  compact('obras'));
+        return view('obras',  compact('obras'));
     }
 
     /**
@@ -61,9 +61,10 @@ class ObraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($obra_id)
     {
-        //
+        $obra = Obra::findOrFail($obra_id);
+        return view('showObra', ['obra_id'=>$obra_id], compact('obra'));
     }
 
     /**
@@ -87,7 +88,12 @@ class ObraController extends Controller
     {
         if(empty(request()->all())) {
             $municipios = Municipio::get();
-            $obra = Obra::findOrFail($obra_id);
+            $obra = Obra::find($obra_id);
+
+            if(!$obra){
+                return view('404obra');
+            }
+            
             return view('modObra', ['obra_id'=>$obra_id], compact('obra', 'municipios'));
         };
 
@@ -115,7 +121,11 @@ class ObraController extends Controller
     public function destroy($obra_id)
     {
         if(empty(request()->all())) {
-            $obra = Obra::findOrFail($obra_id);
+            $obra = Obra::find($obra_id);
+
+            if(!$obra){
+                return view('404obra');
+            }
             return view('deleteObra', ['obra_id'=>$obra_id], compact('obra'));
         };
 

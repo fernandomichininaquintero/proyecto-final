@@ -11,7 +11,7 @@
                 <a class="nav-link" href="{{route('home')}}" style="color: white;">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('obra')}}" style="color: white;">Obras</a>
+                <a class="nav-link" href="{{route('obras')}}" style="color: white;">Obras</a>
             </li>
         </ul>
     </div>

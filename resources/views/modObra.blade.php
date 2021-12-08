@@ -19,7 +19,7 @@
                 <div class="form-group">
                     <label for="municipio">Municipio</label>
                     <select class="form-control" name="municipio_id" id="municipio">
-                        <option value="0">-- Selecciona un Municipio --</option>
+                        <option value="0" selected="true" disabled="disabled">-- Selecciona un Municipio --</option>
                         @foreach($municipios as $municipio)
                         <option value="{{$municipio->id}}">{{$municipio->nombre}}</option>
                         @endforeach
