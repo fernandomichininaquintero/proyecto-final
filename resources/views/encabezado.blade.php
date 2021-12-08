@@ -13,6 +13,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('obras')}}" style="color: white;">Obras</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('workers')}}" style="color: white;">Trabajadores</a>
+            </li>
         </ul>
     </div>
 </nav>

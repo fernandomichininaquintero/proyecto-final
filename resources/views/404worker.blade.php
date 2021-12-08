@@ -5,13 +5,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Obra no encontrada</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Trabajador no encontrado</h5>
       </div>
       <div class="modal-body">
-        <p>No se ha encontrado ninguna obra con ese id</p>
+        <p>No se ha encontrado ningun trabajador con ese id</p>
       </div>
       <div class="modal-footer">
-        <a href="{{route('obras')}}" class="btn btn-secondary" data-dismiss="modal">Volver</a>
+        <a href="{{route('workers')}}" class="btn btn-secondary" data-dismiss="modal">Volver</a>
       </div>
     </div>
   </div>

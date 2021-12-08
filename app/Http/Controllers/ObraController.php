@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Obra;
 use App\Models\Municipio;
-use Illuminate\Http\Request;
 
 class ObraController extends Controller
 {
@@ -52,7 +51,7 @@ class ObraController extends Controller
 
         $newObra->save();
 
-        return redirect()->route('obra');
+        return redirect()->route('obras');
     }
 
     /**
@@ -63,7 +62,12 @@ class ObraController extends Controller
      */
     public function show($obra_id)
     {
-        $obra = Obra::findOrFail($obra_id);
+        $obra = Obra::find($obra_id);
+
+        if(empty($obra)){
+            return view('404obra');
+        };
+
         return view('showObra', ['obra_id'=>$obra_id], compact('obra'));
     }
 
@@ -102,14 +106,18 @@ class ObraController extends Controller
             'municipio_id' => 'required|numeric|min:0|not_in:0',
         ]);
 
-        $obra = Obra::findOrFail(request('obra_id'));
+        $obra = Obra::find(request('obra_id'));
+
+        if(!$obra){
+            return view('404obra');
+        }
 
         $obra->direccion = request('direccion');
         $obra->municipio_id = request('municipio_id');
 
         $obra->save();
 
-        return redirect()->route('obra');
+        return redirect()->route('obras');
     }
 
     /**
@@ -129,10 +137,14 @@ class ObraController extends Controller
             return view('deleteObra', ['obra_id'=>$obra_id], compact('obra'));
         };
 
-        $obra = Obra::findOrFail(request('obra_id'));
+        $obra = Obra::find(request('obra_id'));
+
+        if(!$obra){
+            return view('404obra');
+        }
 
         $obra->delete();
 
-        return redirect()->route('obra');
+        return redirect()->route('obras');
     }
 }
