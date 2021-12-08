@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Worker;
 use App\Models\Group;
+use App\Models\MetrosDia;
 
 class WorkerController extends Controller
 {
@@ -80,6 +81,29 @@ class WorkerController extends Controller
         };
         
         return view('showWorker', ['worker_id'=>$worker_id], compact('worker'));
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showSalary($worker_id)
+    {
+        $worker = Worker::find($worker_id);
+
+        if(empty($worker)){
+            return view('404worker');
+        };
+        
+        if($worker->grupo_id === 4){
+            $metrosDias = MetrosDia::where('trabajador_id', $worker->id)->get();
+
+            return view('showSalary', ['worker_id'=>$worker_id], compact('worker', 'metrosDias'));
+        }
+        
+        return view('showSalary', ['worker_id'=>$worker_id], compact('worker'));
     }
 
     /**
@@ -162,7 +186,7 @@ class WorkerController extends Controller
         };
 
         $worker = Worker::find(request('worker_id'));
-        
+
         if(!$worker){
             return view('404worker');
         }

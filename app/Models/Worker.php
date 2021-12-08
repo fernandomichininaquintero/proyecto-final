@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Group;
+use App\Models\Salary;
 
 class Worker extends Model
 {
@@ -21,4 +22,13 @@ class Worker extends Model
 
         return $group->nombre;
     }
+
+    public function getSalary()
+    {
+        $group = Group::findOrFail($this->grupo_id);
+
+        $salary = Salary::where('grupo_id', $group->id)->get();
+
+        return $salary->cantidad;
+    } 
 }

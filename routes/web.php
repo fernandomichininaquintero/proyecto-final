@@ -20,24 +20,26 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/obras', [ObraController::class, 'index'])->name('obras');
 
-Route::get('/trabajadores', [WorkerController::class, 'index'])->name('workers');
-
 Route::get('/obras/add', [ObraController::class, 'create'])->name('addObra');
 
-Route::get('/trabajadores/add', [WorkerController::class, 'create'])->name('addWorker');
+Route::get('/trabajadores', [WorkerController::class, 'index'])->name('workers');
 
 Route::post('/obras/add', [ObraController::class, 'store'])->name('createObra');
 
-Route::post('/trabajadores/add', [WorkerController::class, 'store'])->name('createWorker');
-
 Route::any('/obras/{obra_id}', [ObraController::class, 'show'])->name('obra');
-
-Route::any('/trabajadores/{worker_id}', [WorkerController::class, 'show'])->name('worker');
 
 Route::any('/obras/modify/{obra_id}', [ObraController::class, 'update'])->name('modObra');
 
-Route::any('/trabajadores/modify/{worker_id}', [WorkerController::class, 'update'])->name('modWorker');
-
 Route::any('/obras/delete/{obra_id}', [ObraController::class, 'destroy'])->name('deleteObra');
 
+Route::get('/trabajadores/add', [WorkerController::class, 'create'])->name('addWorker');
+
+Route::post('/trabajadores/add', [WorkerController::class, 'store'])->name('createWorker');
+
+Route::any('/trabajadores/{worker_id}', [WorkerController::class, 'show'])->name('worker');
+
+Route::any('/trabajadores/modify/{worker_id}', [WorkerController::class, 'update'])->name('modWorker');
+
 Route::any('/trabajadores/delete/{worker_id}', [WorkerController::class, 'destroy'])->name('deleteWorker');
+
+Route::get('/trabajadores/{worker_id}/salary', [WorkerController::class, 'showSalary'])->name('salary');

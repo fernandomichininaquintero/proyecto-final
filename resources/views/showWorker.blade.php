@@ -6,6 +6,13 @@
         <div class="col">
             <h3>Trabajador {{$worker->nombre}} {{$worker->apellidos}}</h3>
         </div>
+        <div class="col">
+            @if($worker->grupo_id === 4)
+                <a class="btn btn-primary float-right" href="{{ route('salary', ['worker_id'=>$worker->id]) }}">Historial Salario</a>
+            @else
+                <a class="btn btn-primary float-right" href="{{ route('salary', ['worker_id'=>$worker->id]) }}">Salario</a>
+            @endif
+        </div>
     </div>
     <div class="row">
         <div class="col">
