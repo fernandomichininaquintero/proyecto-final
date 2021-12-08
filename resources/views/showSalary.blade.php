@@ -6,8 +6,13 @@
         <div class="col">
             <h3>Trabajador {{$worker->nombre}} {{$worker->apellidos}}</h3>
         </div>
+        @if($worker->grupo_id === 4)
+        <div class="col">
+            <a class="btn btn-primary float-right" href="{{ route('addSalary', ['worker_id'=>$worker->id]) }}">Agregar Metros</a>
+        </div>
+        @endif
     </div>
-    @if($worker->cuenta_propia)
+    @if($worker->grupo_id === 4)
     <div class="row">
         <table class="table table-bordered table-hover">
             <thead class="thead">

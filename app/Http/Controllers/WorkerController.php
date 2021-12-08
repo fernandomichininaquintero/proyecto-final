@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Worker;
+use App\Models\Obra;
 use App\Models\Group;
 use App\Models\MetrosDia;
 
@@ -43,6 +44,7 @@ class WorkerController extends Controller
         request()->validate([
             'nombre' => 'required',
             'apellidos' => 'required',
+            'direccion' => 'nullable',
             'telefono' => 'required|min:9',
             'dni' => 'required',
             'grupo' => 'required|numeric|min:0|not_in:0',
@@ -104,6 +106,48 @@ class WorkerController extends Controller
         }
         
         return view('showSalary', ['worker_id'=>$worker_id], compact('worker'));
+    }
+
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function addSalary($worker_id)
+    {
+        $precio_metro = 8;
+        
+        if (empty(request()->all())) {
+            $worker = Worker::find($worker_id);
+
+            $obras = Obra::get();
+
+            if(empty($worker)){
+                return view('404worker');
+            };
+            
+            return view('addSalary', ['worker_id'=>$worker_id], compact('worker', 'obras'));
+        };
+
+        request()->validate([
+            'cantidad' => 'required|numeric',
+            'fecha' => 'required|date',
+            'obra' => 'required|numeric|min:0|not_in:0',
+        ]);
+        
+        
+        $newMetrosDia = new MetrosDia;
+        
+        $newMetrosDia->cantidad = request('cantidad');
+        $newMetrosDia->fecha = request('fecha');
+        $newMetrosDia->trabajador_id = $worker_id;
+        $newMetrosDia->obra_id = request('obra');
+        $newMetrosDia->precio_metro = $precio_metro;
+
+        $newMetrosDia->save();
+        
+        return redirect()->route('salary', ['worker_id'=>$worker_id]);
     }
 
     /**

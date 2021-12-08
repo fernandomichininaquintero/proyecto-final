@@ -9,8 +9,12 @@ class MetrosDia extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+    
     protected $table = 'metros_dia';
-
+    
+    public $timestamps = false;
+    
     public function getSalary()
     {
         $salary = $this->cantidad * $this->precio_metro;

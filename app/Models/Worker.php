@@ -27,7 +27,7 @@ class Worker extends Model
     {
         $group = Group::findOrFail($this->grupo_id);
 
-        $salary = Salary::where('grupo_id', $group->id)->get();
+        $salary = Salary::firstWhere('grupo_id', $group->id);
 
         return $salary->cantidad;
     } 
