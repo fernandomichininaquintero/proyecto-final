@@ -5,16 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
+                @guest
+                    <div class="card-header">Bienvenido Invitado</div>
+                @else
+                    <div class="card-header">Bienvenido {{Auth::user()->email}}</div>
+                @endguest
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                    Bienvenido a tu pagina de gestion de obras y trabajadores.
                 </div>
             </div>
         </div>

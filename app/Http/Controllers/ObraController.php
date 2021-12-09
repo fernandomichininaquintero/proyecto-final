@@ -14,7 +14,7 @@ class ObraController extends Controller
      */
     public function index()
     {
-        $obras = Obra::get();
+        $obras = Obra::paginate(3);
 
         return view('obras',  compact('obras'));
     }

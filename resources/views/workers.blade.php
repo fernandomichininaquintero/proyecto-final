@@ -53,5 +53,8 @@
             </tbody>
         </table>
     </div>
+    <div>
+        {{ $workers->links() }}
+    </div>
 </div>
 @endsection

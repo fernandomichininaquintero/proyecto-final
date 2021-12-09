@@ -52,5 +52,8 @@
             </tbody>
         </table>
     </div>
+    <div>
+        {{ $obras->links() }}
+    </div>
 </div>
 @endsection

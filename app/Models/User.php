@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Worker;
+use App\Models\Empresa;
 
 class User extends Authenticatable
 {
@@ -40,4 +42,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isEnterprise($user_id)
+    {
+        $empresa = Empresa::where('user_id', $user_id)->get();
+        
+        if($empresa){
+            return true;
+        };
+
+        return false;
+    }
+    public function isTrabajador($user_id)
+    {
+        $trabajador = Empresa::where('user_id', $user_id)->get();
+        
+        if($trabajador){
+            return true;
+        };
+
+        return false;
+    }
 }
